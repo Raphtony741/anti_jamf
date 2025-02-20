@@ -1,12 +1,37 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:io' show Platform;
 
+void main() {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    
+    // Force portrait mode
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
 
-void main() => runApp(MyApp());
+    // Add any initialization code here
+    await Future.wait([
+      // Add your async initializations here
+    ]);
+
+    runApp(const MyApp());
+  }, (error, stack) {
+    if (kDebugMode) {
+      print('🔴 Fatal error: $error');
+      print(stack);
+    }
+  });
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
