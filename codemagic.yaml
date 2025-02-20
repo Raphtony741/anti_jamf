@@ -1,0 +1,21 @@
+workflows:
+  default-workflow:
+    name: Default Workflow
+    environment:
+      flutter: stable
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Check formatting
+        script: flutter format --set-exit-if-changed .
+      - name: Analyze code
+        script: flutter analyze
+      - name: Run tests
+        script: flutter test
+      - name: Build
+        script: flutter build
+    artifacts:
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/*.apk
+      - build/web.zip
+      - flutter_drive.log
